@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://bsebhrl420i3l"]
+
+[ext_resource type="PackedScene" uid="uid://bfav225t0c1ue" path="res://snowman.tscn" id="1_6eo5e"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_x1kum"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6eo5e"]
+size = Vector2(1152, 163)
+
+[node name="Stage" type="Node2D" unique_id=1676748078]
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=899758355 groups=["floor"]]
+position = Vector2(576, 530)
+collision_mask = 0
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Floor" unique_id=1408427238]
+position = Vector2(7.6293945e-06, 39.24997)
+scale = Vector2(1152, 161.49995)
+mesh = SubResource("BoxMesh_x1kum")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=152943185]
+position = Vector2(0, 40.5)
+shape = SubResource("RectangleShape2D_6eo5e")
+
+[node name="Snowman" parent="." unique_id=1185700769 instance=ExtResource("1_6eo5e")]
+position = Vector2(576, 410)

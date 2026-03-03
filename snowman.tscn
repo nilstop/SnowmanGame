@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://bfav225t0c1ue"]
+
+[ext_resource type="Texture2D" uid="uid://wfawcs5vdq2y" path="res://icon.svg" id="1_mklb1"]
+[ext_resource type="Script" uid="uid://d3vqimghd6v3w" path="res://snowman.gd" id="1_nxjs2"]
+[ext_resource type="PackedScene" uid="uid://bc6pnkwxpuubo" path="res://snowball.tscn" id="2_shg61"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nxjs2"]
+size = Vector2(52, 74)
+
+[node name="Snowman" type="CharacterBody2D" unique_id=1185700769]
+collision_layer = 2
+script = ExtResource("1_nxjs2")
+snowball = ExtResource("2_shg61")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=988651513]
+shape = SubResource("RectangleShape2D_nxjs2")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1898173533]
+scale = Vector2(0.40625, 0.578125)
+texture = ExtResource("1_mklb1")
