@@ -4,17 +4,28 @@
 [ext_resource type="Script" uid="uid://d3vqimghd6v3w" path="res://snowman.gd" id="1_nxjs2"]
 [ext_resource type="PackedScene" uid="uid://bc6pnkwxpuubo" path="res://snowball.tscn" id="2_shg61"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nxjs2"]
-size = Vector2(52, 74)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_shg61"]
+radius = 25.0
+height = 74.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_shg61"]
+radius = 13.0
 
 [node name="Snowman" type="CharacterBody2D" unique_id=1185700769]
 collision_layer = 2
 script = ExtResource("1_nxjs2")
 snowball = ExtResource("2_shg61")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=988651513]
-shape = SubResource("RectangleShape2D_nxjs2")
-
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1898173533]
 scale = Vector2(0.40625, 0.578125)
 texture = ExtResource("1_mklb1")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=97363000]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_mklb1")
+
+[node name="SnowmanShape" type="CollisionShape2D" parent="." unique_id=988651513]
+shape = SubResource("CapsuleShape2D_shg61")
+
+[node name="WaterShape" type="CollisionShape2D" parent="." unique_id=583217735]
+shape = SubResource("CircleShape2D_shg61")
