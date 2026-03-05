@@ -3,7 +3,7 @@ extends CharacterBody2D
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var snowman_shape: CollisionShape2D = $SnowmanShape
 @onready var water_shape: CollisionShape2D = $WaterShape
-
+@onready var water_environment_area: Area2D = $WaterEnvironmentArea
 
 enum States {Snow, Water, Ice, Steam}
 
@@ -12,11 +12,13 @@ enum States {Snow, Water, Ice, Steam}
 var state: States = States.Snow: set = set_state
 var facing := Vector2.RIGHT
 var throw_direction: Vector2
+var latest_water_slide: String
+var latest_water_normal: Vector2
 
 const PLACEHOLDER_SNOWMAN_SIZE = Vector2(0.4, 0.578)
 const PLACEHOLDER_WATER_SIZE = Vector2(0.2, 0.2)
 const SPEED = 400.0
-const WATER_SPEED = 600.0
+const WATER_SPEED = 660.0
 const JUMP_VELOCITY = -650.0
 const ACCELERATION = 0.1
 const DECELERATION = 0.2
@@ -68,14 +70,44 @@ func _physics_process(delta: float) -> void:
 
 		var x_dir = Input.get_axis("left", "right")
 		var y_dir = Input.get_axis("up", "down")
+		
 		if is_on_floor() or is_on_ceiling():
 			velocity.x = x_dir * WATER_SPEED
+			latest_water_slide = "horizontal"
+			latest_water_normal = get_floor_normal()
+			print(latest_water_normal)
 		else:
 			velocity.x = 0
 		if is_on_wall():
 			velocity.y = y_dir * WATER_SPEED
+			latest_water_slide = "vertical"
+			latest_water_normal = get_wall_normal()
 		else:
 			velocity.y = 0
+		if !( is_on_wall() or is_on_ceiling() or is_on_floor() ):
+			# Turn around corner when not touching anything
+			print(latest_water_normal.normalized())
+			if latest_water_slide == "vertical":
+				
+				# Slides on left wall
+				if latest_water_normal.normalized().x > 0:
+					move_and_collide(Vector2(-1, y_dir) * 10)
+					move_and_collide(Vector2(-1, -y_dir) * 20)
+				# Slides on right wall
+				if latest_water_normal.normalized().x < 0:
+					move_and_collide(Vector2(1, y_dir) * 10)
+					move_and_collide(Vector2(1, -y_dir) * 20)
+			if latest_water_slide == "horizontal":
+				# Slides on floor
+				if latest_water_normal.normalized().y < 0:
+					print("floor")
+					move_and_collide(Vector2(x_dir, 1) * 10)
+					move_and_collide(Vector2(-x_dir, 1) * 20)
+				# Slides on ceiling
+				elif latest_water_normal.normalized().y >= 0:
+					print("ceiling")
+					move_and_collide(Vector2(x_dir, -1) * 10)
+					move_and_collide(Vector2(-x_dir, -1) * 20)
 	#endregion
 	move_and_slide()
 

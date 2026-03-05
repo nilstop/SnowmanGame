@@ -8,8 +8,23 @@
 
 [sub_resource type="BoxMesh" id="BoxMesh_aees8"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_rnkuw"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_gx6sy"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_16g40"]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6eo5e"]
 size = Vector2(1152, 163)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vpggq"]
+size = Vector2(1152, 63)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1edn8"]
+size = Vector2(84, 650)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vsjsl"]
+size = Vector2(105.5, 285)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rnkuw"]
 size = Vector2(232, 197)
@@ -38,9 +53,36 @@ position = Vector2(-533.5, -205.00002)
 scale = Vector2(85, 649.99994)
 mesh = SubResource("BoxMesh_aees8")
 
+[node name="MeshInstance2D4" type="MeshInstance2D" parent="Environment" unique_id=391169048]
+position = Vector2(-6.1035156e-05, -498.5)
+scale = Vector2(1151.9999, 62.999958)
+mesh = SubResource("BoxMesh_rnkuw")
+
+[node name="MeshInstance2D5" type="MeshInstance2D" parent="Environment" unique_id=789111173]
+position = Vector2(533.9999, -205)
+scale = Vector2(83.99991, 650)
+mesh = SubResource("BoxMesh_gx6sy")
+
+[node name="MeshInstance2D6" type="MeshInstance2D" parent="Environment" unique_id=76380846]
+position = Vector2(311.00003, -387.5)
+scale = Vector2(106.000015, 285)
+mesh = SubResource("BoxMesh_16g40")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment" unique_id=152943185]
-position = Vector2(0, 40.5)
+position = Vector2(0, 40)
 shape = SubResource("RectangleShape2D_6eo5e")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Environment" unique_id=1907955807]
+position = Vector2(0, -498.5)
+shape = SubResource("RectangleShape2D_vpggq")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Environment" unique_id=241136654]
+position = Vector2(534, -205)
+shape = SubResource("RectangleShape2D_1edn8")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="Environment" unique_id=468906906]
+position = Vector2(311, -387.5)
+shape = SubResource("RectangleShape2D_vsjsl")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Environment" unique_id=1573655255]
 position = Vector2(-460, -88.5)

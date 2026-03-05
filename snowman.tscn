@@ -11,6 +11,9 @@ height = 74.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_shg61"]
 radius = 13.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_shg61"]
+size = Vector2(36, 36)
+
 [node name="Snowman" type="CharacterBody2D" unique_id=1185700769]
 collision_layer = 2
 script = ExtResource("1_nxjs2")
@@ -21,11 +24,20 @@ scale = Vector2(0.40625, 0.578125)
 texture = ExtResource("1_mklb1")
 
 [node name="Sprite2D2" type="Sprite2D" parent="." unique_id=97363000]
+visible = false
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_mklb1")
 
 [node name="SnowmanShape" type="CollisionShape2D" parent="." unique_id=988651513]
 shape = SubResource("CapsuleShape2D_shg61")
+debug_color = Color(1, 1, 1, 0.41960785)
 
 [node name="WaterShape" type="CollisionShape2D" parent="." unique_id=583217735]
 shape = SubResource("CircleShape2D_shg61")
+
+[node name="WaterEnvironmentArea" type="Area2D" parent="." unique_id=1911178668]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterEnvironmentArea" unique_id=1249891069]
+shape = SubResource("RectangleShape2D_shg61")
+debug_color = Color(0.8509804, 0.6, 0.69803923, 0.41960785)
