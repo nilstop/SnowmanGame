@@ -4,36 +4,54 @@
 [ext_resource type="Script" uid="uid://d3vqimghd6v3w" path="res://snowman.gd" id="1_nxjs2"]
 [ext_resource type="PackedScene" uid="uid://bc6pnkwxpuubo" path="res://snowball.tscn" id="2_shg61"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_26ndh"]
+size = Vector2(78, 78)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nc2e1"]
+size = Vector2(60, 98)
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_shg61"]
 radius = 25.0
 height = 74.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_shg61"]
-radius = 13.0
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_shg61"]
 size = Vector2(36, 36)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_shg61"]
+radius = 13.0
 
 [node name="Snowman" type="CharacterBody2D" unique_id=1185700769]
 collision_layer = 2
 script = ExtResource("1_nxjs2")
 snowball = ExtResource("2_shg61")
 
+[node name="IceSprite" type="Sprite2D" parent="." unique_id=1713471180]
+visible = false
+scale = Vector2(0.67187494, 0.671875)
+texture = ExtResource("1_mklb1")
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1898173533]
 scale = Vector2(0.40625, 0.578125)
 texture = ExtResource("1_mklb1")
 
-[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=97363000]
+[node name="WaterSprite" type="Sprite2D" parent="." unique_id=97363000]
 visible = false
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_mklb1")
 
+[node name="IceCubeShape" type="CollisionShape2D" parent="." unique_id=198182560]
+shape = SubResource("RectangleShape2D_26ndh")
+disabled = true
+debug_color = Color(0.3019608, 1, 1, 0.41960785)
+
+[node name="IceCubeDropShape" type="CollisionShape2D" parent="." unique_id=964646355]
+shape = SubResource("RectangleShape2D_nc2e1")
+disabled = true
+debug_color = Color(0.3019608, 1, 1, 0.41960785)
+
 [node name="SnowmanShape" type="CollisionShape2D" parent="." unique_id=988651513]
 shape = SubResource("CapsuleShape2D_shg61")
 debug_color = Color(1, 1, 1, 0.41960785)
-
-[node name="WaterShape" type="CollisionShape2D" parent="." unique_id=583217735]
-shape = SubResource("CircleShape2D_shg61")
 
 [node name="WaterEnvironmentArea" type="Area2D" parent="." unique_id=1911178668]
 collision_layer = 0
@@ -41,3 +59,13 @@ collision_layer = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterEnvironmentArea" unique_id=1249891069]
 shape = SubResource("RectangleShape2D_shg61")
 debug_color = Color(0.8509804, 0.6, 0.69803923, 0.41960785)
+
+[node name="WaterShape" type="CollisionShape2D" parent="." unique_id=583217735]
+shape = SubResource("CircleShape2D_shg61")
+disabled = true
+
+[node name="IceCubeDropTimer" type="Timer" parent="." unique_id=1792794386]
+wait_time = 0.28
+one_shot = true
+
+[connection signal="timeout" from="IceCubeDropTimer" to="." method="_on_ice_cube_drop_timer_timeout"]

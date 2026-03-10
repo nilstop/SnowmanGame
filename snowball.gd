@@ -5,7 +5,7 @@ var velocity: Vector2
 var direction: Vector2
 
 
-const GRAVITY = 0.7
+const GRAVITY = 0.9
 const SPEED = 24.0
 const START_UP_VELOCITY = -8.0
 
@@ -14,6 +14,8 @@ func _ready() -> void:
 	velocity = direction * SPEED
 	if velocity.normalized().y >= 0:
 		velocity += Vector2(0,START_UP_VELOCITY)
+	if velocity.normalized().y == -1:
+		velocity -= Vector2(0,START_UP_VELOCITY * 0.5)
 
 func _physics_process(delta: float) -> void:
 	# Set velocity and move
