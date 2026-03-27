@@ -17,7 +17,7 @@ func _ready() -> void:
 	if velocity.normalized().y == -1:
 		velocity -= Vector2(0,START_UP_VELOCITY * 0.5)
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	# Set velocity and move
 	velocity.y += GRAVITY
 	if velocity.y >= 0:

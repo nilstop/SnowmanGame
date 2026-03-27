@@ -4,9 +4,8 @@ extends CharacterBody2D
 @onready var snowman_shape: CollisionShape2D = $SnowmanShape
 @onready var water_shape: CollisionShape2D = $WaterShape
 @onready var ice_cube_shape: CollisionShape2D = $IceCubeShape
-@onready var ice_cube_drop_shape: CollisionShape2D = $IceCubeDropShape
 @onready var water_environment_area: Area2D = $WaterEnvironmentArea
-@onready var ice_cube_drop_timer: Timer = $IceCubeDropTimer
+@onready var camera_2d: Camera2D = $"../Camera2D"
 
 enum States {Snow, Water, Ice, Steam}
 
@@ -36,13 +35,12 @@ const ACCELERATION = 0.1
 const DECELERATION = 0.2
 const GRAVITY = 1200
 const RELEASE_VELOCITY = -350.0
-const ICE_DROP_VELOCITY = 1300.0
+const ICE_DROP_VELOCITY = 1500.0
 
 func set_state(new_state):
 	water_shape.disabled = true
 	snowman_shape.disabled = true
 	ice_cube_shape.disabled = true
-	ice_cube_drop_shape.disabled = true
 	
 	if new_state == States.Water:
 		
@@ -54,15 +52,17 @@ func set_state(new_state):
 	if new_state == States.Snow:
 		
 		snowman_shape.disabled = false
-		sprite.scale = PLACEHOLDER_SNOWMAN_SIZE
-		
+		if !state == States.Ice:
+			sprite.scale = PLACEHOLDER_SNOWMAN_SIZE
+		else:
+			pass
+		# Ice to Snow
 	if new_state == States.Ice:
 		
 		velocity = Vector2.ZERO
 		ice_cube_shape.disabled = false
 		sprite.scale = PLACEHOLDER_ICECUBE_SIZE
-		ice_cube_drop_timer.start()
-		
+		velocity = Vector2.DOWN * ICE_DROP_VELOCITY
 	
 	state = new_state
 
@@ -86,6 +86,18 @@ func _physics_process(delta: float) -> void:
 			velocity.x = lerp(velocity.x, direction * SPEED, ACCELERATION)
 		else:
 			velocity.x = lerp(velocity.x, 0.0, DECELERATION)
+		
+		#region Squash & stretch based on y velocity
+		if is_on_floor():
+			#sprite.scale = PLACEHOLDER_SNOWMAN_SIZE
+			sprite.scale.y = lerp(sprite.scale.y, PLACEHOLDER_SNOWMAN_SIZE.y, 0.1)
+			sprite.scale.x = lerp(sprite.scale.x, PLACEHOLDER_SNOWMAN_SIZE.x, 0.1)
+		else:
+			sprite.scale.y = PLACEHOLDER_SNOWMAN_SIZE.y + -velocity.y / 8300
+			sprite.scale.x = PLACEHOLDER_SNOWMAN_SIZE.x + velocity.y / 8300
+			print(velocity.y / 7000)
+		
+		#endregion
 	#endregion
 	#region Water
 
@@ -98,7 +110,6 @@ func _physics_process(delta: float) -> void:
 			velocity.x = x_dir * WATER_SPEED
 			latest_water_slide = "horizontal"
 			latest_water_normal = get_floor_normal()
-			print(latest_water_normal)
 		else:
 			velocity.x = 0
 		if is_on_wall():
@@ -109,7 +120,6 @@ func _physics_process(delta: float) -> void:
 			velocity.y = 0
 		if !( is_on_wall() or is_on_ceiling() or is_on_floor() ):
 			# Turn around corner when not touching anything
-			print(latest_water_normal.normalized())
 			if latest_water_slide == "vertical":
 				
 				# Slides on left wall
@@ -123,21 +133,22 @@ func _physics_process(delta: float) -> void:
 			if latest_water_slide == "horizontal":
 				# Slides on floor
 				if latest_water_normal.normalized().y < 0:
-					print("floor")
 					move_and_collide(Vector2(x_dir, 1) * 10)
 					move_and_collide(Vector2(-x_dir, 1) * 20)
 				# Slides on ceiling
 				elif latest_water_normal.normalized().y >= 0:
-					print("ceiling")
 					move_and_collide(Vector2(x_dir, -1) * 10)
 					move_and_collide(Vector2(-x_dir, -1) * 20)
 	#endregion
 	#region Icecube
 	if state == States.Ice:
 		if is_on_floor():
-			sprite.scale.x = lerp(sprite.scale.x, 1.3, 0.8)
-			sprite.scale.y = lerp(sprite.scale.y, 0.5, 0.8)
-			
+			sprite.scale = Vector2(1.0, 0.3)
+			ice_cube_shape.scale = Vector2(1.0, 0.3)
+			move_and_collide(Vector2.DOWN * 10)
+			camera_2d.screen_shake(20, Vector2(1.0, 3.0))
+			set_state(States.Snow)
+			ice_cube_shape.scale = Vector2.ONE
 		
 	#endregion
 	move_and_slide()
@@ -171,12 +182,3 @@ func set_facing(direction):
 		facing = Vector2.RIGHT
 	if direction == -1:
 		facing = Vector2.LEFT
-
-func _on_ice_cube_drop_timer_timeout() -> void:
-	ice_drop()
-
-func ice_drop():
-	ice_cube_shape.disabled = true
-	ice_cube_drop_shape.disabled = false
-	sprite.scale = Vector2(PLACEHOLDER_ICECUBE_SIZE.x * 0.8, PLACEHOLDER_ICECUBE_SIZE.y * 1.2)
-	velocity = Vector2.DOWN * ICE_DROP_VELOCITY

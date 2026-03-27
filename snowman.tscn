@@ -7,9 +7,6 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_26ndh"]
 size = Vector2(78, 78)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nc2e1"]
-size = Vector2(60, 98)
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_shg61"]
 radius = 25.0
 height = 74.0
@@ -19,6 +16,43 @@ size = Vector2(36, 36)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_shg61"]
 radius = 13.0
+
+[sub_resource type="Animation" id="Animation_shg61"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.40625, 0.578125)]
+}
+
+[sub_resource type="Animation" id="Animation_26ndh"]
+resource_name = "icecubedrop"
+length = 0.735
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.6, 0.6)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nc2e1"]
+_data = {
+&"RESET": SubResource("Animation_shg61"),
+&"icecubedrop": SubResource("Animation_26ndh")
+}
 
 [node name="Snowman" type="CharacterBody2D" unique_id=1185700769]
 collision_layer = 2
@@ -44,11 +78,6 @@ shape = SubResource("RectangleShape2D_26ndh")
 disabled = true
 debug_color = Color(0.3019608, 1, 1, 0.41960785)
 
-[node name="IceCubeDropShape" type="CollisionShape2D" parent="." unique_id=964646355]
-shape = SubResource("RectangleShape2D_nc2e1")
-disabled = true
-debug_color = Color(0.3019608, 1, 1, 0.41960785)
-
 [node name="SnowmanShape" type="CollisionShape2D" parent="." unique_id=988651513]
 shape = SubResource("CapsuleShape2D_shg61")
 debug_color = Color(1, 1, 1, 0.41960785)
@@ -64,8 +93,5 @@ debug_color = Color(0.8509804, 0.6, 0.69803923, 0.41960785)
 shape = SubResource("CircleShape2D_shg61")
 disabled = true
 
-[node name="IceCubeDropTimer" type="Timer" parent="." unique_id=1792794386]
-wait_time = 0.28
-one_shot = true
-
-[connection signal="timeout" from="IceCubeDropTimer" to="." method="_on_ice_cube_drop_timer_timeout"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1301485298]
+libraries/ = SubResource("AnimationLibrary_nc2e1")
