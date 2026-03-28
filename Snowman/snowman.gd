@@ -95,7 +95,6 @@ func _physics_process(delta: float) -> void:
 		else:
 			sprite.scale.y = PLACEHOLDER_SNOWMAN_SIZE.y + -velocity.y / 8300
 			sprite.scale.x = PLACEHOLDER_SNOWMAN_SIZE.x + velocity.y / 8300
-			print(velocity.y / 7000)
 		
 		#endregion
 	#endregion

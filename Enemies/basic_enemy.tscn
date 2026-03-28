@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://cv2dltol86tnc"]
+
+[ext_resource type="Texture2D" uid="uid://wfawcs5vdq2y" path="res://icon.svg" id="1_rwafm"]
+[ext_resource type="Script" uid="uid://drscrrfnhdb86" path="res://Enemies/follow_behaviour.gd" id="2_m2rku"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t1tcq"]
+size = Vector2(48, 56)
+
+[node name="BasicEnemy" type="CharacterBody2D" unique_id=453787036]
+collision_layer = 8
+collision_mask = 9
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1206355672]
+position = Vector2(0, -1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_rwafm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1479922702]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_t1tcq")
+
+[node name="FollowBehaviour" type="Node2D" parent="." unique_id=1851862902]
+script = ExtResource("2_m2rku")
+speed = 366

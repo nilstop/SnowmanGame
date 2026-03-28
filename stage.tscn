@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://bsebhrl420i3l"]
 
-[ext_resource type="PackedScene" uid="uid://bfav225t0c1ue" path="res://snowman.tscn" id="1_6eo5e"]
+[ext_resource type="PackedScene" uid="uid://bfav225t0c1ue" path="res://Snowman/snowman.tscn" id="1_6eo5e"]
 [ext_resource type="Script" uid="uid://joym84nv8t3a" path="res://camera.gd" id="2_aees8"]
+[ext_resource type="PackedScene" uid="uid://cv2dltol86tnc" path="res://Enemies/basic_enemy.tscn" id="3_rnkuw"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_x1kum"]
 
@@ -94,8 +95,12 @@ position = Vector2(-533.5, -260)
 shape = SubResource("RectangleShape2D_gx6sy")
 
 [node name="Snowman" parent="." unique_id=1185700769 instance=ExtResource("1_6eo5e")]
+unique_name_in_owner = true
 position = Vector2(576, 410)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1872853638]
 position = Vector2(576, 324)
 script = ExtResource("2_aees8")
+
+[node name="BasicEnemy" parent="." unique_id=453787036 instance=ExtResource("3_rnkuw")]
+position = Vector2(437, 451)

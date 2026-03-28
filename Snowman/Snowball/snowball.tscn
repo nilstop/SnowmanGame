@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bc6pnkwxpuubo"]
 
-[ext_resource type="Script" uid="uid://cmcg62owg128b" path="res://snowball.gd" id="1_i8p5v"]
+[ext_resource type="Script" uid="uid://cmcg62owg128b" path="res://Snowman/Snowball/snowball.gd" id="1_i8p5v"]
 [ext_resource type="Texture2D" uid="uid://wfawcs5vdq2y" path="res://icon.svg" id="1_srvs4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i8p5v"]

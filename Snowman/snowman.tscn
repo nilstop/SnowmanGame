@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://bfav225t0c1ue"]
 
 [ext_resource type="Texture2D" uid="uid://wfawcs5vdq2y" path="res://icon.svg" id="1_mklb1"]
-[ext_resource type="Script" uid="uid://d3vqimghd6v3w" path="res://snowman.gd" id="1_nxjs2"]
-[ext_resource type="PackedScene" uid="uid://bc6pnkwxpuubo" path="res://snowball.tscn" id="2_shg61"]
+[ext_resource type="Script" uid="uid://d3vqimghd6v3w" path="res://Snowman/snowman.gd" id="1_nxjs2"]
+[ext_resource type="PackedScene" uid="uid://bc6pnkwxpuubo" path="res://Snowman/Snowball/snowball.tscn" id="2_shg61"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_26ndh"]
 size = Vector2(78, 78)
@@ -54,7 +54,7 @@ _data = {
 &"icecubedrop": SubResource("Animation_26ndh")
 }
 
-[node name="Snowman" type="CharacterBody2D" unique_id=1185700769]
+[node name="Snowman" type="CharacterBody2D" unique_id=1185700769 groups=["snowman"]]
 collision_layer = 2
 script = ExtResource("1_nxjs2")
 snowball = ExtResource("2_shg61")
