@@ -1,14 +1,21 @@
 [gd_scene format=3 uid="uid://cv2dltol86tnc"]
 
+[ext_resource type="Script" uid="uid://b2n4ruaog645h" path="res://Enemies/basic_enemy.gd" id="1_iioo1"]
 [ext_resource type="Texture2D" uid="uid://wfawcs5vdq2y" path="res://icon.svg" id="1_rwafm"]
 [ext_resource type="Script" uid="uid://drscrrfnhdb86" path="res://Enemies/follow_behaviour.gd" id="2_m2rku"]
+[ext_resource type="Script" uid="uid://kv1klsxfgdos" path="res://Enemies/health.gd" id="3_gie15"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t1tcq"]
 size = Vector2(48, 56)
 
-[node name="BasicEnemy" type="CharacterBody2D" unique_id=453787036]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gie15"]
+size = Vector2(48, 52)
+
+[node name="BasicEnemy" type="CharacterBody2D" unique_id=453787036 node_paths=PackedStringArray("health_node")]
 collision_layer = 8
 collision_mask = 9
+script = ExtResource("1_iioo1")
+health_node = NodePath("Health")
 
 [node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1206355672]
 position = Vector2(0, -1)
@@ -22,3 +29,15 @@ shape = SubResource("RectangleShape2D_t1tcq")
 [node name="FollowBehaviour" type="Node2D" parent="." unique_id=1851862902]
 script = ExtResource("2_m2rku")
 speed = 366
+
+[node name="Health" type="Node2D" parent="." unique_id=221398507]
+script = ExtResource("3_gie15")
+health = 60
+
+[node name="DamageArea" type="Area2D" parent="." unique_id=1273840320]
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" unique_id=229967450]
+shape = SubResource("RectangleShape2D_gie15")
+debug_color = Color(1, 1, 1, 0.41960785)

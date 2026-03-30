@@ -3,7 +3,7 @@ extends Area2D
 
 var velocity: Vector2
 var direction: Vector2
-
+var damage := 20
 
 const GRAVITY = 0.9
 const SPEED = 24.0
@@ -26,4 +26,8 @@ func _physics_process(_delta: float) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("environment"):
+		queue_free()
+	print(body)
+	if body.has_method("take_damage"):
+		body.take_damage(damage)
 		queue_free()
