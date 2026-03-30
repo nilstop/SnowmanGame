@@ -5,9 +5,13 @@
 [ext_resource type="PackedScene" uid="uid://bc6pnkwxpuubo" path="res://Snowman/Snowball/snowball.tscn" id="2_shg61"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_26ndh"]
-size = Vector2(78, 78)
+size = Vector2(78, 9)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_shg61"]
+radius = 25.0
+height = 74.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_71em2"]
 radius = 25.0
 height = 74.0
 
@@ -74,12 +78,21 @@ scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_mklb1")
 
 [node name="IceCubeShape" type="CollisionShape2D" parent="." unique_id=198182560]
+position = Vector2(0, 34.5)
 shape = SubResource("RectangleShape2D_26ndh")
 disabled = true
 debug_color = Color(0.3019608, 1, 1, 0.41960785)
 
 [node name="SnowmanShape" type="CollisionShape2D" parent="." unique_id=988651513]
 shape = SubResource("CapsuleShape2D_shg61")
+debug_color = Color(1, 1, 1, 0.41960785)
+
+[node name="IceDamageArea" type="Area2D" parent="." unique_id=581519859]
+collision_layer = 0
+collision_mask = 8
+
+[node name="SnowmanShape2" type="CollisionShape2D" parent="IceDamageArea" unique_id=531168036]
+shape = SubResource("CapsuleShape2D_71em2")
 debug_color = Color(1, 1, 1, 0.41960785)
 
 [node name="WaterEnvironmentArea" type="Area2D" parent="." unique_id=1911178668]
@@ -95,3 +108,5 @@ disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1301485298]
 libraries/ = SubResource("AnimationLibrary_nc2e1")
+
+[connection signal="body_entered" from="IceDamageArea" to="." method="_on_ice_damage_area_body_entered"]

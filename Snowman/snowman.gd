@@ -1,10 +1,13 @@
 extends CharacterBody2D
 
+signal ice_land(force)
+
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var snowman_shape: CollisionShape2D = $SnowmanShape
 @onready var water_shape: CollisionShape2D = $WaterShape
 @onready var ice_cube_shape: CollisionShape2D = $IceCubeShape
 @onready var water_environment_area: Area2D = $WaterEnvironmentArea
+#@onready var camera_2d: Camera2D = $Camera2D
 @onready var camera_2d: Camera2D = $"../Camera2D"
 
 enum States {Snow, Water, Ice, Steam}
@@ -16,19 +19,15 @@ var facing := Vector2.RIGHT
 var throw_direction: Vector2
 var latest_water_slide: String
 var latest_water_normal: Vector2
+var ice_force := 0
 
 # Sprite sizes
 const PLACEHOLDER_SNOWMAN_SIZE = Vector2(0.4, 0.578)
 const PLACEHOLDER_WATER_SIZE = Vector2(0.2, 0.2)
 const PLACEHOLDER_ICECUBE_SIZE = Vector2(0.672, 0.672)
 
-# Shape Sizes
-const ICSHAPE_GROUND_SIZE = Vector2()
-const ICSHAPE_AIR_SIZE = Vector2()
-const ICSHAPE_DROP_SIZE = Vector2()
-const SPEED = 400.0
-
 # Velocities
+const SPEED = 400.0
 const WATER_SPEED = 660.0
 const JUMP_VELOCITY = -650.0
 const ACCELERATION = 0.1
@@ -59,6 +58,7 @@ func set_state(new_state):
 		# Ice to Snow
 	if new_state == States.Ice:
 		
+		ice_force = 0
 		velocity = Vector2.ZERO
 		ice_cube_shape.disabled = false
 		sprite.scale = PLACEHOLDER_ICECUBE_SIZE
@@ -141,11 +141,14 @@ func _physics_process(delta: float) -> void:
 	#endregion
 	#region Icecube
 	if state == States.Ice:
+		# Reset ice to snowman + some fx
+		ice_force += 25
 		if is_on_floor():
+			emit_signal("ice_land", ice_force)
 			sprite.scale = Vector2(1.0, 0.3)
 			ice_cube_shape.scale = Vector2(1.0, 0.3)
 			move_and_collide(Vector2.DOWN * 10)
-			camera_2d.screen_shake(20, Vector2(1.0, 3.0))
+			camera_2d.screen_shake(float(ice_force) * 0.1, Vector2(1.0, 3.0))
 			set_state(States.Snow)
 			ice_cube_shape.scale = Vector2.ONE
 		
@@ -181,3 +184,8 @@ func set_facing(direction):
 		facing = Vector2.RIGHT
 	if direction == -1:
 		facing = Vector2.LEFT
+
+# Damage ground-pounded enemies
+func _on_ice_damage_area_body_entered(body: Node2D) -> void:
+	if body.has_method("take_damage") and state == States.Ice:
+		body.take_damage(100)
