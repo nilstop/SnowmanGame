@@ -1,0 +1,66 @@
+{
+	"categories": [
+		{
+			"uuid": "1724c205-a254-4577-8453-e80b9510de09",
+			"title": "Task",
+			"color": "569eff"
+		}
+	],
+	"stages": [
+		{
+			"uuid": "cd58e0a1-da02-4abf-a082-fbd2d6fe2ba7",
+			"title": "Todo",
+			"tasks": [
+				"cbe6afca-8c25-4b61-bc8f-d7098897b037",
+				"b2c7845e-0b73-40a5-8cb8-ed1ae2898506",
+				"ed24b751-7263-4329-b663-d43606d9bc7a"
+			]
+		},
+		{
+			"uuid": "b411c6d8-c751-4701-a38f-511fbd994222",
+			"title": "Doing",
+			"tasks": []
+		},
+		{
+			"uuid": "df96ecc3-f61e-438f-8f81-3aa04844798a",
+			"title": "Done",
+			"tasks": []
+		}
+	],
+	"tasks": [
+		{
+			"uuid": "cbe6afca-8c25-4b61-bc8f-d7098897b037",
+			"title": "Steam ability (a+up)",
+			"description": "",
+			"category": "1724c205-a254-4577-8453-e80b9510de09",
+			"steps": []
+		},
+		{
+			"uuid": "b2c7845e-0b73-40a5-8cb8-ed1ae2898506",
+			"title": "Enemy spawning",
+			"description": "",
+			"category": "1724c205-a254-4577-8453-e80b9510de09",
+			"steps": []
+		},
+		{
+			"uuid": "ed24b751-7263-4329-b663-d43606d9bc7a",
+			"title": "Player invis frames",
+			"description": "",
+			"category": "1724c205-a254-4577-8453-e80b9510de09",
+			"steps": []
+		}
+	],
+	"layout": {
+		"columns": [
+			[
+				"cd58e0a1-da02-4abf-a082-fbd2d6fe2ba7"
+			],
+			[
+				"b411c6d8-c751-4701-a38f-511fbd994222"
+			],
+			[
+				"df96ecc3-f61e-438f-8f81-3aa04844798a"
+			]
+		]
+	}
+}
