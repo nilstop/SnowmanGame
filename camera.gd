@@ -1,4 +1,5 @@
-extends Camera2D
+extends Camera2D 
+class_name Camera
 
 signal done
 

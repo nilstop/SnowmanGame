@@ -2,18 +2,24 @@ extends CharacterBody2D
 
 signal ice_land(force)
 
-@onready var sprite: Sprite2D = $Sprite2D
+# Sprite Pivot references
+@onready var snow_sprite_pivot: Node2D = $SnowSpritePivot
+@onready var ice_sprite_pivot: Node2D = $IceSpritePivot
+@onready var water_sprite_pivot: Node2D = $WaterSpritePivot
+
+# Node references
 @onready var snowman_shape: CollisionShape2D = $SnowmanShape
 @onready var water_shape: CollisionShape2D = $WaterShape
 @onready var ice_cube_shape: CollisionShape2D = $IceCubeShape
 @onready var water_environment_area: Area2D = $WaterEnvironmentArea
 #@onready var camera_2d: Camera2D = $Camera2D
-@onready var camera_2d: Camera2D = $"../Camera2D"
+@onready var camera_2d: Camera = $"../Camera2D"
 
 enum States {Snow, Water, Ice, Steam}
 
 @export var snowball: PackedScene
 
+# States
 var state: States = States.Snow: set = set_state
 var facing := Vector2.RIGHT
 var throw_direction: Vector2
@@ -40,28 +46,30 @@ func set_state(new_state):
 	water_shape.disabled = true
 	snowman_shape.disabled = true
 	ice_cube_shape.disabled = true
+	water_sprite_pivot.hide()
+	snow_sprite_pivot.hide()
+	ice_sprite_pivot.hide()
 	
 	if new_state == States.Water:
 		
+		water_sprite_pivot.show()
 		move_and_collide(Vector2.DOWN * 25)
 		water_shape.disabled = false
 		velocity = Vector2.ZERO
-		sprite.scale = PLACEHOLDER_WATER_SIZE
 		
 	if new_state == States.Snow:
 		
+		snow_sprite_pivot.show()
 		snowman_shape.disabled = false
-		if !state == States.Ice:
-			sprite.scale = PLACEHOLDER_SNOWMAN_SIZE
-		else:
-			pass
+		if state == States.Ice:
+			snow_sprite_pivot.scale = Vector2(3.0,0.4)
 		# Ice to Snow
 	if new_state == States.Ice:
 		
+		ice_sprite_pivot.show()
 		ice_force = 0
 		velocity = Vector2.ZERO
 		ice_cube_shape.disabled = false
-		sprite.scale = PLACEHOLDER_ICECUBE_SIZE
 		velocity = Vector2.DOWN * ICE_DROP_VELOCITY
 	
 	state = new_state
@@ -90,11 +98,11 @@ func _physics_process(delta: float) -> void:
 		#region Squash & stretch based on y velocity
 		if is_on_floor():
 			#sprite.scale = PLACEHOLDER_SNOWMAN_SIZE
-			sprite.scale.y = lerp(sprite.scale.y, PLACEHOLDER_SNOWMAN_SIZE.y, 0.1)
-			sprite.scale.x = lerp(sprite.scale.x, PLACEHOLDER_SNOWMAN_SIZE.x, 0.1)
+			snow_sprite_pivot.scale.y = lerp(snow_sprite_pivot.scale.y, 1.0, 0.1)
+			snow_sprite_pivot.scale.x = lerp(snow_sprite_pivot.scale.x, 1.0, 0.1)
 		else:
-			sprite.scale.y = PLACEHOLDER_SNOWMAN_SIZE.y + -velocity.y / 8300
-			sprite.scale.x = PLACEHOLDER_SNOWMAN_SIZE.x + velocity.y / 8300
+			snow_sprite_pivot.scale.y = 1.0 + -velocity.y / 6000
+			snow_sprite_pivot.scale.x = 1.0 + velocity.y / 6000
 		
 		#endregion
 	#endregion
@@ -145,7 +153,7 @@ func _physics_process(delta: float) -> void:
 		ice_force += 25
 		if is_on_floor():
 			emit_signal("ice_land", ice_force)
-			sprite.scale = Vector2(1.0, 0.3)
+			snow_sprite_pivot.scale = Vector2(1.0, 0.3)
 			ice_cube_shape.scale = Vector2(1.0, 0.3)
 			move_and_collide(Vector2.DOWN * 10)
 			camera_2d.screen_shake(float(ice_force) * 0.1, Vector2(1.0, 3.0))
@@ -193,6 +201,7 @@ func _on_ice_damage_area_body_entered(body: Node2D) -> void:
 # Take damage & apply knockback when colliding with enemies
 func hit(enemy, damage, knockback):
 	if state == States.Snow:
+		camera_2d.screen_shake(20)
 		Global.player_health -= damage
 		print(Global.player_health)
 		velocity = global_position.direction_to(enemy.global_position) * -Vector2(knockback, knockback * 0.4)

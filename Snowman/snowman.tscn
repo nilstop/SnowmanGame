@@ -25,7 +25,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/path = NodePath("SnowSpritePivot/Sprite2D:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -41,7 +41,7 @@ length = 0.735
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/path = NodePath("SnowSpritePivot/Sprite2D:scale")
 tracks/0/interp = 0
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -62,17 +62,29 @@ collision_layer = 2
 script = ExtResource("1_nxjs2")
 snowball = ExtResource("2_shg61")
 
-[node name="IceSprite" type="Sprite2D" parent="." unique_id=1713471180]
+[node name="IceSpritePivot" type="Node2D" parent="." unique_id=610187027]
 visible = false
+position = Vector2(0, 43)
+
+[node name="IceSprite" type="Sprite2D" parent="IceSpritePivot" unique_id=1713471180]
+position = Vector2(0, -43)
 scale = Vector2(0.67187494, 0.671875)
 texture = ExtResource("1_mklb1")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1898173533]
+[node name="SnowSpritePivot" type="Node2D" parent="." unique_id=1277337564]
+position = Vector2(0, 37)
+
+[node name="Sprite2D" type="Sprite2D" parent="SnowSpritePivot" unique_id=1898173533]
+position = Vector2(0, -37)
 scale = Vector2(0.40625, 0.578125)
 texture = ExtResource("1_mklb1")
 
-[node name="WaterSprite" type="Sprite2D" parent="." unique_id=97363000]
+[node name="WaterSpritePivot" type="Node2D" parent="." unique_id=421954269]
 visible = false
+position = Vector2(0, 25)
+
+[node name="WaterSprite" type="Sprite2D" parent="WaterSpritePivot" unique_id=97363000]
+position = Vector2(0, -24.999998)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_mklb1")
 
