@@ -189,3 +189,12 @@ func set_facing(direction):
 func _on_ice_damage_area_body_entered(body: Node2D) -> void:
 	if body.has_method("take_damage") and state == States.Ice:
 		body.take_damage(100)
+
+# Take damage & apply knockback when colliding with enemies
+func hit(enemy, damage, knockback):
+	if state == States.Snow:
+		Global.player_health -= damage
+		print(Global.player_health)
+		velocity = global_position.direction_to(enemy.global_position) * -Vector2(knockback, knockback * 0.4)
+		move_and_slide()
+	

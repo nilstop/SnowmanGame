@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://drscrrfnhdb86" path="res://Enemies/follow_behaviour.gd" id="2_m2rku"]
 [ext_resource type="Script" uid="uid://kv1klsxfgdos" path="res://Enemies/health.gd" id="3_gie15"]
 [ext_resource type="Script" uid="uid://bgjpbd5y6xqm4" path="res://Enemies/physics.gd" id="5_4vdx4"]
+[ext_resource type="Script" uid="uid://bcjrama33f6a2" path="res://Enemies/damage_dealer.gd" id="6_rcyh1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t1tcq"]
 size = Vector2(48, 56)
@@ -31,6 +32,7 @@ shape = SubResource("RectangleShape2D_t1tcq")
 [node name="FollowBehaviour" type="Node2D" parent="." unique_id=1851862902]
 script = ExtResource("2_m2rku")
 speed = 366
+lerp_weight = 0.05
 
 [node name="Health" type="Node2D" parent="." unique_id=221398507]
 script = ExtResource("3_gie15")
@@ -40,10 +42,18 @@ health = 60
 script = ExtResource("5_4vdx4")
 weight_multiplier = 1.0
 
-[node name="DamageArea" type="Area2D" parent="." unique_id=1273840320]
-collision_layer = 0
-collision_mask = 6
+[node name="DamageDealer" type="Node2D" parent="." unique_id=755945987 node_paths=PackedStringArray("physics_node")]
+script = ExtResource("6_rcyh1")
+touch_damage = 15
+knockback = 1000
+physics_node = NodePath("../Physics")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" unique_id=229967450]
+[node name="DamageArea" type="Area2D" parent="DamageDealer" unique_id=1273840320]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageDealer/DamageArea" unique_id=229967450]
 shape = SubResource("RectangleShape2D_gie15")
 debug_color = Color(1, 1, 1, 0.41960785)
+
+[connection signal="area_entered" from="DamageDealer/DamageArea" to="DamageDealer" method="_on_damage_area_area_entered"]

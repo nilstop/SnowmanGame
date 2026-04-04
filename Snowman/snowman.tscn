@@ -14,6 +14,9 @@ height = 74.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_shg61"]
 size = Vector2(36, 36)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_71em2"]
+size = Vector2(40, 56)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_shg61"]
 radius = 13.0
 
@@ -99,6 +102,13 @@ collision_layer = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterEnvironmentArea" unique_id=1249891069]
 shape = SubResource("RectangleShape2D_shg61")
 debug_color = Color(0.8509804, 0.6, 0.69803923, 0.41960785)
+
+[node name="DamageArea" type="Area2D" parent="." unique_id=1958630698 groups=["snowman_damage_area"]]
+collision_layer = 2
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" unique_id=1571679645]
+shape = SubResource("RectangleShape2D_71em2")
 
 [node name="WaterShape" type="CollisionShape2D" parent="." unique_id=583217735]
 shape = SubResource("CircleShape2D_shg61")

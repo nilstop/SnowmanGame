@@ -29,6 +29,7 @@ environment=""
 snowman=""
 snowball=""
 enemy=""
+snowman_damage_area=""
 
 [input]
 
