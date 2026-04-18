@@ -6,7 +6,7 @@ signal done
 var shake_tense: float
 var current_shake_ID := 0
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	shake_tense = lerp(shake_tense, 0.0, 0.1)
 
 func screen_shake(intensity, multiplier: Vector2 = Vector2(1.0,1.0)):

@@ -8,7 +8,7 @@ extends Node2D
 var direction: float
 const GRAVITY = 1200
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	# Follow snowman
 	if snowman.global_position.x - p.global_position.x <= 0:
 		direction = lerp(direction, -1.0, lerp_weight)

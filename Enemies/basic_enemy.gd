@@ -12,5 +12,4 @@ func take_damage(damage):
 	health_node.take_damage(damage)
 
 func bounce(force: int = 0):
-	print(force)
 	physics_node.bounce(force)
