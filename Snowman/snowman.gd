@@ -3,19 +3,24 @@ extends CharacterBody2D
 signal ice_land(force)
 
 # Sprite Pivot references
-@onready var snow_sprite_pivot: Node2D = $SnowSpritePivot
-@onready var ice_sprite_pivot: Node2D = $IceSpritePivot
-@onready var water_sprite_pivot: Node2D = $WaterSpritePivot
+@onready var snow_sprite_pivot: Node2D = $Sprites/SnowSpritePivot
+@onready var ice_sprite_pivot: Node2D = $Sprites/IceSpritePivot
+@onready var water_sprite_pivot: Node2D = $Sprites/WaterSpritePivot
 
 # Node references
 @onready var snowman_shape: CollisionShape2D = $SnowmanShape
 @onready var water_shape: CollisionShape2D = $WaterShape
 @onready var ice_cube_shape: CollisionShape2D = $IceCubeShape
 @onready var water_environment_area: Area2D = $WaterEnvironmentArea
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var phealth_label: Label = %phealth_label
+
 #@onready var camera_2d: Camera2D = $Camera2D
 @onready var camera_2d: Camera = $"../Camera2D"
 
+# States
 enum States {Snow, Water, Ice, Steam}
+var invis := false
 
 @export var snowball: PackedScene
 
@@ -201,9 +206,18 @@ func _on_ice_damage_area_body_entered(body: Node2D) -> void:
 # Take damage & apply knockback when colliding with enemies
 func hit(enemy, damage, knockback):
 	if state == States.Snow:
-		camera_2d.screen_shake(20)
-		Global.player_health -= damage
-		print(Global.player_health)
+		if invis == false:
+			camera_2d.screen_shake(20)
+			Global.player_health -= damage
+			phealth_label.text = "Health: " + str(Global.player_health)
+			if Global.player_health <= 0:
+				die()
 		velocity = global_position.direction_to(enemy.global_position) * -Vector2(knockback, knockback * 0.4)
 		move_and_slide()
-	
+		animation_player.play("invisframes")
+		invis = true
+		await animation_player.animation_finished
+		invis = false
+
+func die():
+	queue_free()

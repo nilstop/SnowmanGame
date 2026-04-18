@@ -21,18 +21,17 @@ size = Vector2(40, 56)
 radius = 13.0
 
 [sub_resource type="Animation" id="Animation_shg61"]
-length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SnowSpritePivot/Sprite2D:scale")
+tracks/0/path = NodePath("Sprites:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0.40625, 0.578125)]
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
 }
 
 [sub_resource type="Animation" id="Animation_26ndh"]
@@ -41,7 +40,7 @@ length = 0.735
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SnowSpritePivot/Sprite2D:scale")
+tracks/0/path = NodePath("Sprites/SnowSpritePivot/Sprite2D:scale")
 tracks/0/interp = 0
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -51,10 +50,26 @@ tracks/0/keys = {
 "values": [Vector2(0.6, 0.6)]
 }
 
+[sub_resource type="Animation" id="Animation_71em2"]
+resource_name = "invisframes"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.2, 0.26666668, 0.33333334, 0.4, 0.46666667, 0.53333336, 0.6, 0.6666667, 0.73333335, 0.8, 0.8666667, 0.93333334, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nc2e1"]
 _data = {
 &"RESET": SubResource("Animation_shg61"),
-&"icecubedrop": SubResource("Animation_26ndh")
+&"icecubedrop": SubResource("Animation_26ndh"),
+&"invisframes": SubResource("Animation_71em2")
 }
 
 [node name="Snowman" type="CharacterBody2D" unique_id=1185700769 groups=["snowman"]]
@@ -62,28 +77,30 @@ collision_layer = 2
 script = ExtResource("1_nxjs2")
 snowball = ExtResource("2_shg61")
 
-[node name="IceSpritePivot" type="Node2D" parent="." unique_id=610187027]
+[node name="Sprites" type="Node2D" parent="." unique_id=1640479483]
+
+[node name="IceSpritePivot" type="Node2D" parent="Sprites" unique_id=610187027]
 visible = false
 position = Vector2(0, 43)
 
-[node name="IceSprite" type="Sprite2D" parent="IceSpritePivot" unique_id=1713471180]
+[node name="IceSprite" type="Sprite2D" parent="Sprites/IceSpritePivot" unique_id=1713471180]
 position = Vector2(0, -43)
 scale = Vector2(0.67187494, 0.671875)
 texture = ExtResource("1_mklb1")
 
-[node name="SnowSpritePivot" type="Node2D" parent="." unique_id=1277337564]
+[node name="SnowSpritePivot" type="Node2D" parent="Sprites" unique_id=1277337564]
 position = Vector2(0, 37)
 
-[node name="Sprite2D" type="Sprite2D" parent="SnowSpritePivot" unique_id=1898173533]
+[node name="Sprite2D" type="Sprite2D" parent="Sprites/SnowSpritePivot" unique_id=1898173533]
 position = Vector2(0, -37)
 scale = Vector2(0.40625, 0.578125)
 texture = ExtResource("1_mklb1")
 
-[node name="WaterSpritePivot" type="Node2D" parent="." unique_id=421954269]
+[node name="WaterSpritePivot" type="Node2D" parent="Sprites" unique_id=421954269]
 visible = false
 position = Vector2(0, 25)
 
-[node name="WaterSprite" type="Sprite2D" parent="WaterSpritePivot" unique_id=97363000]
+[node name="WaterSprite" type="Sprite2D" parent="Sprites/WaterSpritePivot" unique_id=97363000]
 position = Vector2(0, -24.999998)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_mklb1")

@@ -25,6 +25,5 @@ func bounce(force):
 		p.move_and_slide()
 
 func knockback(player):
-	print("knockback")
 	p.velocity = p.global_position.direction_to(player.global_position) * -KNOCKBACK * weight_multiplier
 	p.move_and_slide()
