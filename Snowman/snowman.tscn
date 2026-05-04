@@ -146,4 +146,6 @@ disabled = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1301485298]
 libraries/ = SubResource("AnimationLibrary_nc2e1")
 
+[node name="Timer" type="Timer" parent="." unique_id=1897387310]
+
 [connection signal="body_entered" from="IceDamageArea" to="." method="_on_ice_damage_area_body_entered"]

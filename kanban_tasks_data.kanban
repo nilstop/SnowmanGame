@@ -13,7 +13,8 @@
 			"tasks": [
 				"cbe6afca-8c25-4b61-bc8f-d7098897b037",
 				"b2c7845e-0b73-40a5-8cb8-ed1ae2898506",
-				"ed24b751-7263-4329-b663-d43606d9bc7a"
+				"ef0e5ab3-9b20-4a79-a0f7-2803a639e400",
+				"fc022c5b-d088-465d-ba4c-0721ccc09379"
 			]
 		},
 		{
@@ -24,7 +25,9 @@
 		{
 			"uuid": "df96ecc3-f61e-438f-8f81-3aa04844798a",
 			"title": "Done",
-			"tasks": []
+			"tasks": [
+				"ed24b751-7263-4329-b663-d43606d9bc7a"
+			]
 		}
 	],
 	"tasks": [
@@ -45,6 +48,20 @@
 		{
 			"uuid": "ed24b751-7263-4329-b663-d43606d9bc7a",
 			"title": "Player invis frames",
+			"description": "",
+			"category": "1724c205-a254-4577-8453-e80b9510de09",
+			"steps": []
+		},
+		{
+			"uuid": "ef0e5ab3-9b20-4a79-a0f7-2803a639e400",
+			"title": "Flying enemy",
+			"description": "",
+			"category": "1724c205-a254-4577-8453-e80b9510de09",
+			"steps": []
+		},
+		{
+			"uuid": "fc022c5b-d088-465d-ba4c-0721ccc09379",
+			"title": "Ice spikes",
 			"description": "",
 			"category": "1724c205-a254-4577-8453-e80b9510de09",
 			"steps": []

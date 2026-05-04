@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://bsebhrl420i3l"]
 
+[ext_resource type="Script" uid="uid://chws6a6tk8ppi" path="res://Stage/enemy_spawning.gd" id="1_2idjd"]
 [ext_resource type="PackedScene" uid="uid://bfav225t0c1ue" path="res://Snowman/snowman.tscn" id="1_430pi"]
 [ext_resource type="PackedScene" uid="uid://cv2dltol86tnc" path="res://Enemies/basic_enemy.tscn" id="2_n2kry"]
 [ext_resource type="Script" uid="uid://joym84nv8t3a" path="res://Stage/camera.gd" id="3_2idjd"]
+[ext_resource type="Script" uid="uid://do4rp6q5nkot1" path="res://Stage/control.gd" id="4_n2kry"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_x1kum"]
 
@@ -33,6 +35,8 @@ size = Vector2(232, 197)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gx6sy"]
 size = Vector2(85, 540)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4qfnv"]
 
 [node name="Stage" type="Node2D" unique_id=1676748078]
 
@@ -106,13 +110,39 @@ position = Vector2(576, 324)
 position_smoothing_enabled = true
 script = ExtResource("3_2idjd")
 
-[node name="Control" type="Control" parent="." unique_id=107893186]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="EnemySpawning" type="Node2D" parent="." unique_id=1516879307]
+script = ExtResource("1_2idjd")
 
-[node name="phealth_label" type="Label" parent="Control" unique_id=2086240730]
+[node name="SpawnCollideCheck" type="Area2D" parent="EnemySpawning" unique_id=1662385614]
+collision_layer = 0
+
+[node name="ColorRect" type="ColorRect" parent="EnemySpawning/SpawnCollideCheck" unique_id=912324081]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+color = Color(0, 0.7294118, 1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawning/SpawnCollideCheck" unique_id=2031326550]
+shape = SubResource("CircleShape2D_4qfnv")
+
+[node name="SpawnTimer" type="Timer" parent="EnemySpawning" unique_id=1358326758]
+wait_time = 2.0
+autostart = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1993102567]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=107893186 node_paths=PackedStringArray("camera_node")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_n2kry")
+camera_node = NodePath("../../Camera2D")
+
+[node name="phealth_label" type="Label" parent="CanvasLayer/Control" unique_id=2086240730]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 31.0
@@ -121,3 +151,5 @@ offset_right = 71.0
 offset_bottom = 52.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Health: 100"
+
+[connection signal="timeout" from="EnemySpawning/SpawnTimer" to="EnemySpawning" method="_on_spawn_timer_timeout"]
