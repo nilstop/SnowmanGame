@@ -1,6 +1,7 @@
-[gd_scene format=3 uid="uid://bsebhrl420i3l"]
+[gd_scene format=4 uid="uid://bsebhrl420i3l"]
 
 [ext_resource type="Script" uid="uid://chws6a6tk8ppi" path="res://Stage/enemy_spawning.gd" id="1_2idjd"]
+[ext_resource type="Texture2D" uid="uid://bfv26wylmlqks" path="res://Stage/tile.png" id="1_4qfnv"]
 [ext_resource type="PackedScene" uid="uid://bfav225t0c1ue" path="res://Snowman/snowman.tscn" id="1_430pi"]
 [ext_resource type="PackedScene" uid="uid://cv2dltol86tnc" path="res://Enemies/basic_enemy.tscn" id="2_n2kry"]
 [ext_resource type="Script" uid="uid://joym84nv8t3a" path="res://Stage/camera.gd" id="3_2idjd"]
@@ -35,6 +36,50 @@ size = Vector2(232, 197)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gx6sy"]
 size = Vector2(85, 540)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x4fvs"]
+texture = ExtResource("1_4qfnv")
+texture_region_size = Vector2i(100, 100)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_rm8na"]
+tile_size = Vector2i(100, 100)
+sources/0 = SubResource("TileSetAtlasSource_x4fvs")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4qfnv"]
 
@@ -97,6 +142,11 @@ shape = SubResource("RectangleShape2D_rnkuw")
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Environment" unique_id=882403648]
 position = Vector2(-533.5, -260)
 shape = SubResource("RectangleShape2D_gx6sy")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=131636647]
+visible = false
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAUAAAAAAAAAAAABAAYAAAAAAAAAAAABAAUAAAAAAAAAAAABAAQAAAAAAAAAAAAAAAYAAAAAAAAAAAACAAYAAAAAAAAAAAADAAYAAAAAAAAAAAAEAAYAAAAAAAAAAAAFAAYAAAAAAAAAAAAGAAYAAAAAAAAAAAAHAAYAAAAAAAAAAAAIAAYAAAAAAAAAAAAJAAYAAAAAAAAAAAAKAAYAAAAAAAAAAAALAAYAAAAAAAAAAAALAAUAAAAAAAAAAAAKAAUAAAAAAAAAAAAJAAUAAAAAAAAAAAAIAAUAAAAAAAAAAAAHAAUAAAAAAAAAAAAGAAUAAAAAAAAAAAAFAAUAAAAAAAAAAAAEAAUAAAAAAAAAAAADAAUAAAAAAAAAAAACAAUAAAAAAAAAAAALAAQAAAAAAAAAAAALAAMAAAAAAAAAAAALAAIAAAAAAAAAAAALAAEAAAAAAAAAAAALAAAAAAAAAAAAAAAKAAAAAAAAAAAAAAAJAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAADAAAAAAAAAAAAAAACAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_rm8na")
 
 [node name="Snowman" parent="." unique_id=1185700769 instance=ExtResource("1_430pi")]
 unique_name_in_owner = true
